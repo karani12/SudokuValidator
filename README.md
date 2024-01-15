@@ -1,7 +1,8 @@
 ## Sudoku Validator
 
 This is a sudoku validator. I am learning about OS and all about
-threading and concurrency. The sudoku validator will create two threads.
+threading and concurrency. The sudoku validator will create 11 threads to validate rows, columns and 9 subgrids of 3 x 3.
+
 The concept of threading and concurrency are very important in understanding some concepts in software engineering.
 
 > A thread is basically a unit of work in a cpu
