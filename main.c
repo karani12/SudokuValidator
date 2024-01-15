@@ -53,13 +53,13 @@ void validateRow(void *arg) {
         int value = grid[column][row];
 
         if (seen[value] || value == 0) {
-            results[1] = 0;
+            results[0] = 0;
             return;
         }
         seen[value] = 1;
 
     }
-    results[1] = 1;
+    results[0] = 1;
 }
 
 void validateSubgrid(void *arg) {
@@ -83,6 +83,8 @@ void validateSubgrid(void *arg) {
     }
 
     results[subgridIndex + 1] = 1;
+    free(arg);
+
 }
 
 void main() {
@@ -90,14 +92,21 @@ void main() {
         Parameters *data = malloc(sizeof(Parameters));
         data->subgridIndex = i;
         pthread_create(&threads[i], NULL, (void *(*)(void *)) validateSubgrid, data);
+        pthread_join(threads[i], NULL);
     }
 
-    Parameters *data = malloc(sizeof(Parameters));
-    data->column = 0;
-    data->row = 0;
+    Parameters *column_data = malloc(sizeof(Parameters));
+    column_data->column = 0;
 
-    pthread_create(&threads[10], NULL, (void *(*)(void *)) validateColumn, data);
-    pthread_create(&threads[11], NULL, (void *(*)(void *)) validateRow, data);
+    pthread_create(&threads[10], NULL, (void *(*)(void *)) validateColumn, column_data);
+    pthread_join(threads[10], NULL);
+    free(column_data);
+
+    Parameters *row_data = malloc(sizeof(Parameters));
+    row_data->row = 0;
+    pthread_create(&threads[9], NULL, (void *(*)(void *)) validateRow, row_data);
+    pthread_join(threads[9], NULL);
+    free(row_data);
 
     int valid = 1;
     for (int i = 1; i <= 9; i++) {
