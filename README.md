@@ -5,7 +5,7 @@ threading and concurrency. The sudoku validator will create 11 threads to valida
 
 The concept of threading and concurrency are very important in understanding some concepts in software engineering.
 
-> A thread is basically a unit of work in a cpu
+> A thread is basically a unit of work of cpu utilization
 
 - Multicore systems allow for parallelism i.e multiple threads making progress simultaneously.
 - Single core systems allow for concurrency when multiple threads are making progress.
